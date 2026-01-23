@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessWorkingHour extends Model
+class CompanyWorkingHour extends Model
 {
-    protected $table = 'business_working_hours';
+    protected $table = 'company_working_hours';
 
     protected $fillable = [
         'day_of_week',

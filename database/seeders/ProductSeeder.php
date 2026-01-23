@@ -31,7 +31,6 @@ class ProductSeeder extends Seeder
 
                     Product::create([
                         'name'        => $productNames[$category->name][$i],
-                        'image'       => 'products/' . strtolower(str_replace(' ', '_', $productNames[$category->name][$i])) . '.jpg',
                         'description' => 'High quality ' . strtolower($productNames[$category->name][$i]) .
                                           ' designed for comfort and everyday use.',
                         'price'       => rand(20, 150),

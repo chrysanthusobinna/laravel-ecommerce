@@ -90,7 +90,7 @@
                                 ? asset('storage/' . $product->primaryImage->path) 
                                 : ($product->images->count() > 0 
                                     ? asset('storage/' . $product->images->first()->path) 
-                                    : '/assets/images/products/product-1.jpg');
+                                    : '/assets/images/products/no-image.png');
                         @endphp
                         <div class="col-6 col-md-4 col-lg-4 col-xl-3">
                             <div class="product">

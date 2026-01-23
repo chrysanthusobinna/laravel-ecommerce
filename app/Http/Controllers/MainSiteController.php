@@ -15,8 +15,8 @@ use App\Helpers\DistanceHelper;
 use App\Models\CompanyAddress;
 use App\Models\SocialMediaHandle;
 use App\Models\TermsAndCondition;
-use App\Models\BusinessPhoneNumber;
-use App\Models\BusinessWorkingHour;
+use App\Models\CompanyPhoneNumber;
+use App\Models\CompanyWorkingHour;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Traits\CartTrait;
 use App\Http\Requests\CustomerDetailsRequest;
@@ -52,8 +52,8 @@ class MainSiteController extends Controller
     public function contact()
     {
         $addresses = CompanyAddress::all();
-        $phoneNumbers = BusinessPhoneNumber::all();
-        $workingHours = BusinessWorkingHour::all();
+        $phoneNumbers = CompanyPhoneNumber::all();
+        $workingHours = CompanyWorkingHour::all();
     
         return view('main-site.contact', [ 'addresses' => $addresses, 'phoneNumbers' => $phoneNumbers, 'workingHours' => $workingHours, ]);
     }

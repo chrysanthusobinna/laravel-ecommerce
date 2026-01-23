@@ -13,13 +13,13 @@ class UpdateOrderItemsTable extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             // Drop the foreign key constraint
-            $table->dropForeign(['menu_id']); // Replace 'menu_id' with the actual name of your foreign key if different
+            $table->dropForeign(['product_id']); // Replace 'product_id' with the actual name of your foreign key if different
             
-            // Remove the 'menu_id' column
-            $table->dropColumn('menu_id');
+            // Remove the 'product_id' column
+            $table->dropColumn('product_id');
 
-            // Add the 'menu_name' column
-            $table->string('menu_name')->after('id'); // Adjust 'after' based on your column order preference
+            // Add the 'product_name' column
+            $table->string('product_name')->after('id'); // Adjust 'after' based on your column order preference
         });
     }
 
@@ -29,14 +29,14 @@ class UpdateOrderItemsTable extends Migration
     public function down(): void
     {
         Schema::table('order_items', function (Blueprint $table) {
-            // Add back the 'menu_id' column
-            $table->unsignedBigInteger('menu_id')->after('id');
+            // Add back the 'product_id' column
+            $table->unsignedBigInteger('product_id')->after('id');
 
             // Recreate the foreign key constraint
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            // Remove the 'menu_name' column
-            $table->dropColumn('menu_name');
+            // Remove the 'product_name' column
+            $table->dropColumn('product_name');
         });
     }
 }

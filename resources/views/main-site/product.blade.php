@@ -74,13 +74,14 @@
                                         @php
                                             $mainImage = $product->primaryImage ?? $product->images->first();
                                             $galleryImages = $product->images->take(4);
+                                            
                                         @endphp
 
                                         <figure class="product-main-image">
                                             @if ($mainImage)
                                                 <img id="product-zoom" src="{{ asset('storage/' . $mainImage->path) }}" data-zoom-image="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $product->name }}">
                                             @else
-                                                <img id="product-zoom" src="/assets/images/products/product-4.jpg" data-zoom-image="/assets/images/products/product-4.jpg" alt="Placeholder Image">
+                                                <img id="product-zoom" src="/assets/images/products/no-image.png" data-zoom-image="/assets/images/products/no-image.png" alt="Placeholder Image">
                                             @endif
 
                                             @if($product->label)
@@ -164,7 +165,9 @@
                                         <a href="#" data-id="{{ $product->id }}"
                                             data-name="{{ $product->name }}"
                                             data-price="{{ $product->price }}" 
-                                            data-img_src="{{ asset('storage/' . $mainImage->path) }}"    
+
+                                            data-img_src="{{ $mainImage ? asset('storage/' . $mainImage->path) : asset('images/default-product.jpg') }}"
+
                                             class="{{ $quantity==0 ? '':'d-none' }}  btn-product btn-cart add-to-cart {{ $product->sizes->isNotEmpty() ? 'disabled' : '' }}"
                                             @if($product->sizes->isNotEmpty()) disabled @endif>
                                             <span>add to cart</span></a>
@@ -231,7 +234,7 @@
                                     @if($relatedProduct->primaryImage)
                                         <img src="{{ asset('storage/' . $relatedProduct->primaryImage->path) }}" alt="{{ $relatedProduct->name }}" class="product-image">
                                     @else
-                                        <img src="/assets/images/products/product-4.jpg" alt="Placeholder Image" class="product-image">
+                                        <img src="/assets/images/products/no-image.png" alt="Placeholder Image" class="product-image">
                                     @endif
                                 </a>
                             </figure><!-- End .product-media -->

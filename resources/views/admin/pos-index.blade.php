@@ -230,6 +230,44 @@ $('#payment_method').on('change', function() {
         $('#checkout-form').submit();
     });
 
+    // Product Information Modal Handler
+    $('.product-info-link').on('click', function(e) {
+        e.preventDefault();
+        
+        var productId = $(this).data('product-id');
+        var productName = $(this).data('product-name');
+        var productPrice = $(this).data('product-price');
+        var productDescription = $(this).data('product-description');
+        var productCategory = $(this).data('product-category');
+        var productImage = $(this).data('product-image');
+        var productLabel = $(this).data('product-label');
+        var productSizes = $(this).data('product-sizes');
+        var currencySymbol = '{!! $site_settings->currency_symbol ?? "$" !!}';
+        currencySymbol = $('<textarea/>').html(currencySymbol).text();
+        
+        // Populate modal with product information
+        $('#modal-product-id').text(productId);
+        $('#modal-product-name').text(productName);
+        $('#modal-product-price').text(currencySymbol + productPrice);
+        $('#modal-product-description').text(productDescription);
+        $('#modal-product-category').text(productCategory);
+        $('#modal-product-image').attr('src', productImage);
+        
+        // Handle label - show/hide based on whether it exists
+        if (productLabel) {
+            $('#modal-product-label').text(productLabel);
+            $('#label-container').show();
+        } else {
+            $('#label-container').hide();
+        }
+        if(productSizes && productSizes !== 'No sizes available'){
+            $('#modal-product-sizes').text(productSizes);
+            $('#sizes-container').show();
+        } else {
+            $('#sizes-container').hide();
+        }
+    });
+
 </script>
  
 @endpush
@@ -247,13 +285,22 @@ $('#payment_method').on('change', function() {
  
       @include('partials.message-bag')
  
-
-      <div class="row">
+<div class="row">
         <div class="col-lg-6 d-flex grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-wrap justify-content-between">
-                    <h4 class="card-title mb-3">Products</h4>
+                  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                    <h4 class="card-title mb-0">Products</h4>
+                    <div class="d-flex align-items-center">
+                      <select name="category" id="categorySelect" class="form-control form-control-sm" onchange="window.location.href = this.value ? '/admin/pos/' + this.value : '/admin/pos/';" style="width: 200px; height: 31px;">
+                        <option value="">All Categories</option>
+                        @if($categories)
+                          @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ ($category && $category->id == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
+                          @endforeach
+                        @endif
+                      </select>
+                    </div>
                   </div>
                   <div class="table-responsive">
                     <table class="table" id="product-table">
@@ -275,9 +322,20 @@ $('#payment_method').on('change', function() {
                                         ? asset('storage/' . $product->primaryImage->path) 
                                         : ($product->images->count() > 0 
                                             ? asset('storage/' . $product->images->first()->path) 
-                                            : '/assets/images/products/product-1.jpg');
+                                            : '/assets/images/products/no-image.png');
                                 @endphp
-                                <img src="{{ $productImage }}" alt="{{ $product->name }}" width="50" class="img-thumbnail trigger-lightbox" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{{ $productImage }}">  {{ $product->name }}
+                                <img src="{{ $productImage }}" alt="{{ $product->name }}" width="50" class="img-thumbnail trigger-lightbox" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{{ $productImage }}"> 
+                                <a href="#" class="product-info-link" data-bs-toggle="modal" data-bs-target="#productInfoModal" 
+                                   data-product-id="{{ $product->id }}" 
+                                   data-product-name="{{ $product->name }}" 
+                                   data-product-price="{{ $product->price }}" 
+                                   data-product-description="{{ $product->description ?? 'No description available' }}"
+                                   data-product-category="{{ $product->category->name ?? 'No category' }}"
+                                   data-product-image="{{ $productImage }}"
+                                   data-product-label="{{ $product->label->name ?? '' }}"
+                                   data-product-sizes="{{ $product->sizes->pluck('name')->implode(', ') ?? 'No sizes available' }}">
+                                   {{ $product->name }}
+                                </a>
                             </td>
                             <td>
                                 @if($product->sizes->isNotEmpty())
@@ -401,6 +459,40 @@ $('#payment_method').on('change', function() {
  
 
 
+
+<!-- Product Information Modal -->
+<div class="modal fade" id="productInfoModal" tabindex="-1" role="dialog" aria-labelledby="productInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="productInfoModalLabel">Product Information</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-4">
+                      <img id="modal-product-image" src="" alt="Product Image" class="img-fluid rounded">
+                  </div>
+                  <div class="col-md-8">
+                      <h4 id="modal-product-name"></h4>
+                      <p id="label-container" style="display: none;"><strong>Label:</strong> <span id="modal-product-label" class="badge badge-info"></span></p>
+                      <p><strong>Price:</strong> <span id="modal-product-price"></span></p>
+                      <p><strong>Category:</strong> <span id="modal-product-category"></span></p>
+                      <p id="sizes-container" style="display: none;"><strong>Sizes:</strong> <span id="modal-product-sizes"></span></p>
+                      <p><strong>Description:</strong></p>
+                      <p id="modal-product-description"></p>
+                      <p><strong>Product ID:</strong> <span id="modal-product-id"></span></p>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 
 <!-- Confirmation Modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">

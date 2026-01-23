@@ -156,7 +156,7 @@ Route::prefix('admin')->middleware(RedirectIfNotAdmin::class)->group(function ()
 
 
     // Admin Cart / POS routes
-    Route::get('pos/', [CartController::class, 'index'])->name('admin.pos.index');
+    Route::get('pos/{category_id?}', [CartController::class, 'index'])->name('admin.pos.index');
     Route::post('cart/add', [CartController::class, 'addToCart'])->name('admin.cart.add');
     Route::post('cart/remove', [CartController::class, 'removeFromCart'])->name('admin.cart.remove');
     Route::get('cart/view', [CartController::class, 'getCart'])->name('admin.cart.view');
@@ -183,7 +183,7 @@ Route::prefix('admin')->middleware(RedirectIfNotAdmin::class)->group(function ()
         Route::post('category/update/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
         Route::post('category/delete/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
-        //Admin Settings Menu
+        //Admin Settings Product
 
         Route::get('product/create/{category_id}', [ProductController::class, 'create'])->name('admin.products.create');
         Route::get('product/list/{category_id?}', [ProductController::class, 'list'])->name('admin.products.list');

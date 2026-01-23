@@ -78,9 +78,9 @@
                                     <div class="col-12">
                                         <small class="text-muted d-block mb-3">Need Assistance?</small>
                                         <div class="d-flex flex-column gap-2">
-                                            @if($firstBusinessPhoneNumber)
-                                                <a href="tel:{{ $firstBusinessPhoneNumber->phone_number }}" class="text-decoration-none">
-                                                    <i class="icon-phone"></i> {{ $firstBusinessPhoneNumber->phone_number }}
+                                            @if($firstCompanyPhoneNumber)
+                                                <a href="tel:{{ $firstCompanyPhoneNumber->phone_number }}" class="text-decoration-none">
+                                                    <i class="icon-phone"></i> {{ $firstCompanyPhoneNumber->phone_number }}
                                                 </a>
                                             @endif
                                             <a href="mailto:{{ config('site.email') }}" class="text-decoration-none">

@@ -452,7 +452,7 @@ class CheckoutController extends Controller
             $qty = (int) ($item['quantity'] ?? 1);
 
             $order->orderItems()->create([
-                'menu_name' => $item['name'],
+                'product_name' => $item['name'],
                 'quantity'  => $qty,
                 'subtotal'  => $item['price'] * $qty,
                 'size_id'   => $item['size_id'] ?? null,

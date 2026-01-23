@@ -15,7 +15,7 @@ use App\Helpers\TwilioHelper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-use App\Models\BusinessPhoneNumber;
+use App\Models\CompanyPhoneNumber;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Traits\CartTrait;
 use App\Http\Controllers\Traits\MainSiteViewSharedDataTrait;
@@ -96,7 +96,7 @@ class PaymentController extends Controller
     //                             $order->delivery_fee,
     //                             $order->total_price,
     //                             config('site.email'),
-    //                             BusinessPhoneNumber::first() ? BusinessPhoneNumber::first()->phone_number : null
+    //                             CompanyPhoneNumber::first() ? CompanyPhoneNumber::first()->phone_number : null
     //                         ));
     //                     } catch (Exception $e) {
     //                         Log::error('Order email failed to send: ' . $e->getMessage());
@@ -195,7 +195,7 @@ class PaymentController extends Controller
                     $order->delivery_fee,
                     $order->total_price,
                     config('site.email'),
-                    BusinessPhoneNumber::first()?->phone_number
+                    CompanyPhoneNumber::first()?->phone_number
                 ));
             } catch (\Exception $e) {
                 Log::error('Order email failed to send: '.$e->getMessage());
@@ -283,7 +283,7 @@ class PaymentController extends Controller
                     $order->delivery_fee,
                     $order->total_price,
                     config('site.email'),
-                    BusinessPhoneNumber::first()?->phone_number
+                    CompanyPhoneNumber::first()?->phone_number
                 ));
             } catch (\Exception $e) {
                 Log::error('Order email failed to send (paystack): '.$e->getMessage());

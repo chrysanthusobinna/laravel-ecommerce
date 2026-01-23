@@ -187,6 +187,11 @@ class CustomerController extends Controller
 
             $message = ['success' => 'Account created successfully. You can now log in.'];
             auth()->login($user);
+
+            // Check if user is a customer and has items in cart
+            if ($this->getCartCount() > 0) {
+                return redirect()->route('customer.cart');
+            }
             return redirect()->route('home')->with($message);
         } else {
             $message = ['error' => 'Failed to create account. Please try again.'];
@@ -208,5 +213,11 @@ class CustomerController extends Controller
             return redirect()->route('product.list')
                 ->with('error', 'Failed to clear cart. Please try again.');
         }
+    }
+
+    private function getCartCount(): int
+    {
+        $cart = session()->get($this->cartkey, []);
+        return count($cart);
     }
 }

@@ -96,7 +96,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function () {
-    let maxImages = 10;
+    let maxImages = 4;
     let filesArray = [];
     let existingImages = @json($product->images->map(function($img) {
         return [
@@ -416,7 +416,7 @@ $(document).ready(function () {
           <div class="mb-3">
             <label class="form-label">Product Images</label>
             <div class="alert alert-info">
-              <i class="fa fa-info-circle"></i> You can upload up to <strong>10 images</strong> total. Click on any image to set it as primary. Green border indicates existing images, yellow border indicates new images.
+              <i class="fa fa-info-circle"></i> You can upload up to <strong>4 images</strong> total. Click on any image to set it as primary. Green border indicates existing images, yellow border indicates new images.
             </div>
             
             <div id="uploadArea" class="upload-area">

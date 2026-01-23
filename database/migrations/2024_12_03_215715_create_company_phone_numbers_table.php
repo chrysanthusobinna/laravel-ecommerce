@@ -6,19 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::rename('restaurant_working_hours', 'business_working_hours');
+        Schema::create('company_phone_numbers', function (Blueprint $table) {
+            $table->id();
+            $table->string('phone_number');
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::rename('business_working_hours', 'restaurant_working_hours');
+        Schema::dropIfExists('company_phone_numbers');
     }
 };

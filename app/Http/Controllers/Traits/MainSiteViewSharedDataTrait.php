@@ -6,7 +6,7 @@ use App\Models\SiteSetting;
 use App\Models\LiveChatScript;
 use App\Models\CompanyAddress;
 use App\Models\SocialMediaHandle;
-use App\Models\BusinessPhoneNumber;
+use App\Models\CompanyPhoneNumber;
 use App\Models\Category;
 
 
@@ -20,9 +20,9 @@ trait MainSiteViewSharedDataTrait
         
         $liveChatScript = LiveChatScript::latest()->first();
         $firstCompanyAddress = CompanyAddress::first();
-        $firstBusinessPhoneNumber = BusinessPhoneNumber::first();
+        $firstCompanyPhoneNumber = CompanyPhoneNumber::first();
         $socialMediaHandles = SocialMediaHandle::orderBy('id', 'desc')->get();
-        $whatsAppNumber = BusinessPhoneNumber::where('use_whatsapp', 1)->first();
+        $whatsAppNumber = CompanyPhoneNumber::where('use_whatsapp', 1)->first();
         $customer_total_cart_items = $this->getTotalItems('customer');
 
         $site_settings = SiteSetting::firstOrCreate([], [
@@ -41,7 +41,7 @@ trait MainSiteViewSharedDataTrait
             'whatsAppNumber' => $whatsAppNumber,
             'socialMediaHandles' => $socialMediaHandles,
             'firstCompanyAddress' => $firstCompanyAddress,
-            'firstBusinessPhoneNumber' => $firstBusinessPhoneNumber,
+            'firstCompanyPhoneNumber' => $firstCompanyPhoneNumber,
             'customer_total_cart_items' => $customer_total_cart_items,
             'site_settings' => $site_settings,
         ]);

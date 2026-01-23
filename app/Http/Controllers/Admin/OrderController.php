@@ -159,7 +159,7 @@ class OrderController extends Controller
             // Create order items using the relationship
             foreach ($cart as $item) {
                 $order->orderItems()->create([
-                    'menu_name' => $item['name'],  
+                    'product_name' => $item['name'],  
                     'quantity' => $item['quantity'],
                     'subtotal' => $item['price'] * $item['quantity'],
                     'size_id' => $item['size_id'] ?? null,

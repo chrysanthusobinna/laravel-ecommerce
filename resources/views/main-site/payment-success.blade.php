@@ -87,9 +87,9 @@
                                         <div class="col-12">
                                             <small class="text-muted d-block">Contact Support</small>
                                             <div>
-                                                @if($firstBusinessPhoneNumber)
-                                                    <a href="tel:{{ $firstBusinessPhoneNumber->phone_number }}" class="text-decoration-none me-3">
-                                                        <i class="icon-phone"></i> {{ $firstBusinessPhoneNumber->phone_number }}
+                                                @if($firstCompanyPhoneNumber)
+                                                    <a href="tel:{{ $firstCompanyPhoneNumber->phone_number }}" class="text-decoration-none me-3">
+                                                        <i class="icon-phone"></i> {{ $firstCompanyPhoneNumber->phone_number }}
                                                     </a>
                                                 @endif
                                                 <a href="mailto:{{ config('site.email') }}" class="text-decoration-none">

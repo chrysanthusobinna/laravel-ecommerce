@@ -9,10 +9,10 @@ use App\Models\OrderSettings;
 use App\Models\CompanyAddress;
 use App\Models\LiveChatScript;
 use App\Models\SocialMediaHandle;
-use App\Models\BusinessWorkingHour;
+use App\Models\CompanyWorkingHour;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddressRequest;
-use App\Models\BusinessPhoneNumber;
+use App\Models\CompanyPhoneNumber;
 use App\Http\Requests\PhoneNumberRequest;
 use App\Http\Requests\WorkingHourRequest;
 use App\Http\Requests\LiveChatScriptRequest;
@@ -35,8 +35,8 @@ class GeneralSettingsController extends Controller
     public function index()
     {
         $addresses = CompanyAddress::all();
-        $phoneNumbers = BusinessPhoneNumber::all();
-        $workingHours = BusinessWorkingHour::all();
+        $phoneNumbers = CompanyPhoneNumber::all();
+        $workingHours = CompanyWorkingHour::all();
         $socialMediaHandles = SocialMediaHandle::all();
         $script = LiveChatScript::latest()->first();
 
@@ -57,10 +57,10 @@ class GeneralSettingsController extends Controller
 
         // If 'use_whatsapp' is checked, set all others to 0 first
         if ($request->has('use_whatsapp') && $request->use_whatsapp == 1) {
-            BusinessPhoneNumber::where('use_whatsapp', 1)->update(['use_whatsapp' => 0]);
+            CompanyPhoneNumber::where('use_whatsapp', 1)->update(['use_whatsapp' => 0]);
         }
     
-        BusinessPhoneNumber::create([
+        CompanyPhoneNumber::create([
             'phone_number' => $request->phone_number,
             'use_whatsapp' => $request->has('use_whatsapp') ? 1 : 0,
         ]);
@@ -74,11 +74,11 @@ class GeneralSettingsController extends Controller
     public function updatePhoneNumber(PhoneNumberRequest $request, $id)
     {
     
-        $phoneNumber = BusinessPhoneNumber::findOrFail($id);
+        $phoneNumber = CompanyPhoneNumber::findOrFail($id);
     
         // If 'use_whatsapp' is checked, set all others to 0 first
         if ($request->has('use_whatsapp') && $request->use_whatsapp == 1) {
-            BusinessPhoneNumber::where('use_whatsapp', 1)->update(['use_whatsapp' => 0]);
+            CompanyPhoneNumber::where('use_whatsapp', 1)->update(['use_whatsapp' => 0]);
         }
     
         $phoneNumber->update([
@@ -93,7 +93,7 @@ class GeneralSettingsController extends Controller
 
     public function deletePhoneNumber($id)
     {
-        BusinessPhoneNumber::findOrFail($id)->delete();
+        CompanyPhoneNumber::findOrFail($id)->delete();
         return back()->with('success', 'Phone number deleted successfully.');
     }
     
@@ -183,7 +183,7 @@ class GeneralSettingsController extends Controller
             $data['closes_at'] = null;
         }
 
-        BusinessWorkingHour::create([
+        CompanyWorkingHour::create([
             'day_of_week' => $data['day_of_week'],
             'opens_at'    => $data['opens_at'] ?? null,
             'closes_at'   => $data['closes_at'] ?? null,
@@ -197,7 +197,7 @@ class GeneralSettingsController extends Controller
 
 public function updateWorkingHour(WorkingHourRequest $request, $id)
 {
-    $workingHour = BusinessWorkingHour::findOrFail($id);
+    $workingHour = CompanyWorkingHour::findOrFail($id);
 
     $data = $request->validated();
     $data['is_closed'] = $request->boolean('is_closed');
@@ -220,7 +220,7 @@ public function updateWorkingHour(WorkingHourRequest $request, $id)
 
 public function deleteWorkingHour($id)
 {
-    BusinessWorkingHour::findOrFail($id)->delete();
+    CompanyWorkingHour::findOrFail($id)->delete();
 
     return back()->with('success', 'Working hour deleted successfully.');
 }

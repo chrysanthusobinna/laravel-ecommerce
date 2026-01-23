@@ -116,7 +116,7 @@
                                         <tbody>
                                             @foreach($order->orderItems as $item)
                                                 <tr>
-                                                    <td>{{ $item->menu_name }}{{ $item->size_name ? ' - ' . $item->size_name : '' }}</td>
+                                                    <td>{{ $item->product_name }}{{ $item->size_name ? ' - ' . $item->size_name : '' }}</td>
                                                     <td class="text-center">{{ $item->quantity }}</td>
                                                     <td class="text-end">
                                                         {!! $site_settings->currency_symbol ?? '£' !!}{{ number_format($item->subtotal, 2) }}

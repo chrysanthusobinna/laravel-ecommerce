@@ -47,7 +47,7 @@
         <span class="menu-title">Catalog</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="catalog-menu">
+      <div class="collapse {{ request()->route()->named('admin.products.list') || request()->route()->named('admin.categories.index') ? 'show' : '' }}" id="catalog-menu">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.products.list') }}">Products</a>

@@ -120,7 +120,7 @@
             <tbody>
                 @foreach($orderItems as $item)
                     <tr>
-                        <td>{{ $item['menu_name'] }}</td>
+                        <td>{{ $item['product_name'] }}</td>
                         <td>{!! $site_settings->currency_symbol !!}{{ number_format($item['subtotal'], 2) }}</td>
                         <td>{{ $item['quantity'] }}</td>
                     </tr>

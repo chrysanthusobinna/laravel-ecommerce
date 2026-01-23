@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\BusinessWorkingHour;
+use App\Models\CompanyWorkingHour;
 
-class BusinessWorkingHoursSeeder extends Seeder
+class CompanyWorkingHoursSeeder extends Seeder
 {
     public function run()
     {
@@ -20,7 +20,7 @@ class BusinessWorkingHoursSeeder extends Seeder
         ];
 
         foreach ($days as $item) {
-            BusinessWorkingHour::create([
+            CompanyWorkingHour::create([
                 'day_of_week' => $item['day'],
                 'opens_at'    => $item['closed'] ? null : $item['open'],
                 'closes_at'   => $item['closed'] ? null : $item['close'],
@@ -31,4 +31,4 @@ class BusinessWorkingHoursSeeder extends Seeder
 }
 
 
-//  php artisan db:seed --class=BusinessWorkingHoursSeeder
+//  php artisan db:seed --class=CompanyWorkingHoursSeeder

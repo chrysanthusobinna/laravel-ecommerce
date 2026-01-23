@@ -109,8 +109,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="categorySelect" class="form-label">Switch Category</label>
-                        <select name="category" id="categorySelect" class="form-control form-control-sm" onchange="if(this.value) { window.location.href='/admin/product/list/' + this.value; }" style="height: 31px;">
-                            <option value="">Select Category</option>
+                        <select name="category" id="categorySelect" class="form-control form-control-sm" onchange="window.location.href = this.value ? '/admin/product/list/' + this.value : '/admin/product/list/';" style="height: 31px;">
+                            <option value="">All Categories</option>
                             @if($categories)
                                 @foreach($categories as $cat)
                                     <option value="{{ $cat->id }}" {{ ($category && $category->id == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -154,7 +154,7 @@
                                 <td>
                                     <!-- Trigger for Lightbox Modal -->
                                     @php
-                                        $productImage = $product->primaryImage ? asset('storage/' . $product->primaryImage->path) : (count($product->images) > 0 ? asset('storage/' . $product->images->first()->path) : '/admin_resources/images/placeholder.png');
+                                        $productImage = $product->primaryImage ? asset('storage/' . $product->primaryImage->path) : (count($product->images) > 0 ? asset('storage/' . $product->images->first()->path) : '/assets/images/products/no-image.png');
                                     @endphp
                                     <img src="{{ $productImage }}" alt="Product Image" width="50" class="img-thumbnail trigger-lightbox" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{{ $productImage }}">  {{ $product->name }}
                                 </td>
@@ -171,7 +171,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No products available in this category.</td>
+                                <td colspan="4" class="text-center">No products Found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -190,12 +190,6 @@
                         {{ $products->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
                     </div>
                 </div>
-            @else
-                @if(request()->filled('search'))
-                    <div class="alert alert-info mt-3">
-                        <i class="fa fa-info-circle"></i> No products found matching your search for "{{ request('search') }}".
-                     </div>
-                @endif
             @endif
         </div>
 

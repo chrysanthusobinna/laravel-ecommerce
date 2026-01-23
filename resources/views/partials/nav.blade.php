@@ -37,9 +37,9 @@
     </ul>
 
 
-    @if($firstBusinessPhoneNumber)  
+    @if($firstCompanyPhoneNumber)  
     <div class="header_btn d-sm-block d-none">
-        <a href="tel:{{ $firstBusinessPhoneNumber->phone_number }}" class="btn btn-default rounded-0 ml-2 btn-sm"><i class="fa fa-phone"></i> CALL US</a>
+        <a href="tel:{{ $firstCompanyPhoneNumber->phone_number }}" class="btn btn-default rounded-0 ml-2 btn-sm"><i class="fa fa-phone"></i> CALL US</a>
     </div>  
     @endif
 

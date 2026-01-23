@@ -90,7 +90,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function () {
-    let maxImages = 10;
+    let maxImages = 4;
     let filesArray = [];
     let primaryIndex = 0;
 
@@ -344,7 +344,7 @@ $(document).ready(function () {
           <div class="mb-3">
             <label class="form-label">Product Images <span class="text-danger">*</span></label>
             <div class="alert alert-info">
-              <i class="fa fa-info-circle"></i> You can upload up to <strong>10 images</strong>. The first image will be set as the primary image. Click on any image to set it as primary.
+              <i class="fa fa-info-circle"></i> You can upload up to <strong>4 images</strong>. The first image will be set as the primary image. Click on any image to set it as primary.
             </div>
             
             <div id="uploadArea" class="upload-area">
