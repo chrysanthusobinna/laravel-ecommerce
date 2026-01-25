@@ -13,6 +13,7 @@ use App\Http\Controllers\Traits\CartTrait;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Controllers\Traits\OrderNumberGeneratorTrait;
 use App\Http\Controllers\Traits\MainSiteViewSharedDataTrait;
+use App\Mail\NewAccountNotification;
 
 class CustomerController extends Controller
 {
@@ -173,17 +174,17 @@ class CustomerController extends Controller
 
         if ($user) {
 
-            // try {
-            //     // Send email welcome message
-            //     Mail::to($user->email)->send(new NewAccountNotification($user, $user->email));
-            //     $message = ['success' => 'User created successfully. Login details sent to user email.'];
-            // } catch (TransportExceptionInterface $e) {
+            try {
+                // Send email welcome message
+                Mail::to($user->email)->send(new NewAccountNotification($user, $user->email));
+                $message = ['success' => 'User created successfully. Login details sent to user email.'];
+            } catch (TransportExceptionInterface $e) {
     
-            //     $message = [
-            //         'success' => 'User created successfully.',
-            //         'error' => 'Failed to send email: ' . $e->getMessage()
-            //     ];
-            // }
+                $message = [
+                    'success' => 'User created successfully.',
+                    'error' => 'Failed to send email: ' . $e->getMessage()
+                ];
+            }
 
             $message = ['success' => 'Account created successfully. You can now log in.'];
             auth()->login($user);

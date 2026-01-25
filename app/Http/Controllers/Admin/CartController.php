@@ -23,10 +23,6 @@ class CartController extends Controller
     
     public function index($category_id = null)
     {
-        // $products = Product::with(['primaryImage', 'images', 'sizes', 'category', 'label'])->get();
-        // $sizes = Size::all();
-        // $categories = Category::all();
-        // return view('admin.pos-index', compact('products', 'sizes', 'categories'));
 
         if ($category_id) {
             $category = Category::findOrFail($category_id);
@@ -39,7 +35,7 @@ class CartController extends Controller
  
         
         $products = $query->paginate(10);
-        $categories = Category::all(); // For dropdown in modals
+        $categories = Category::all(); 
 
         return view('admin.pos-index', compact('products', 'categories', 'category'));
     } 
