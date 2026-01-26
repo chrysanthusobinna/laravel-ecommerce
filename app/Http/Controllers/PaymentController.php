@@ -135,8 +135,7 @@ class PaymentController extends Controller
 
     public function paymentSuccess(Request $request)
     {
-        // still run your “wizard” checks if you want
-        $this->runAllChecks();
+         $this->runAllChecks();
 
         return match ($this->provider) {
             'stripe'  => $this->handleStripeSuccess($request),
@@ -391,6 +390,69 @@ class PaymentController extends Controller
         } catch (Exception $e) {
             // General error
             Log::error('Webhook error: ' . $e->getMessage());
+            return response('Webhook error', 500);
+        }
+    }
+
+    public function handlePaystackWebhook(Request $request)
+    {
+        // Retrieve the raw payload
+        $payload = @file_get_contents('php://input');
+        $event = null;
+
+        // Verify the webhook signature (optional but recommended)
+        $paystack_secret = config('services.paystack.webhook_secret');
+        if ($paystack_secret) {
+            $signature = $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] ?? '';
+            if ($signature !== hash_hmac('sha512', $payload, $paystack_secret)) {
+                Log::error('Invalid Paystack webhook signature');
+                return response('Invalid signature', 400);
+            }
+        }
+
+        try {
+            $event = json_decode($payload, true);
+
+            // Handle specific event types
+            if ($event && $event['event'] === 'charge.success') {
+                $data = $event['data'];
+                $reference = $data['reference'] ?? null;
+
+                if ($reference) {
+                    $order = Order::with(['orderItems', 'customer'])
+                        ->where('session_id', $reference)
+                        ->first();
+
+                    if ($order && $order->status_online_pay === 'unpaid') {
+                        $order->status_online_pay = 'paid';
+                        $order->payment_method = 'PAYSTACK';
+                        $order->save();
+
+                        // Send the email
+                        try {
+                            Mail::to($order->customer->email)->send(new OrderEmail(
+                                $order->orderItems,
+                                $order->customer->first_name,
+                                $order->customer->email,
+                                $order->order_no,
+                                $order->delivery_fee,
+                                $order->total_price,
+                                config('site.email'),
+                                CompanyPhoneNumber::first()?->phone_number
+                            ));
+                        } catch (Exception $e) {
+                            Log::error('Order email failed to send (Paystack webhook): ' . $e->getMessage());
+                        }
+                        
+                        // Send WhatsApp message
+                        $this->sendWhatsAppNotification($order);
+                    }
+                }
+            }
+
+            return response('Webhook handled', 200);
+        } catch (Exception $e) {
+            Log::error('Paystack webhook error: ' . $e->getMessage());
             return response('Webhook error', 500);
         }
     }

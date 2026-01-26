@@ -44,6 +44,7 @@ Route::get('payment/', [PaymentController::class, 'payment'])->name('payment');
 Route::get('payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('payment-cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 Route::post('stripe/webhook', [PaymentController::class, 'handleStripeWebhook']);
+Route::post('paystack/webhook', [PaymentController::class, 'handlePaystackWebhook']);
 
   
 
