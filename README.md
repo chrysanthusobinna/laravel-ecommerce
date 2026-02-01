@@ -22,7 +22,7 @@ This project is a **Complete E-commerce Management System** built using Laravel.
 ---
 
 ## Demo
-Check out the live demo of the project: [E-commerce Management System Demo](https://restaurant.chrys-online.com/)
+Check out the live demo of the project: [E-commerce Management System Demo](https://laravel-ecommerce.chrys-online.com/)
 
 ![Screenshot](documentation/demo-main-site.png)
 ![Screenshot](documentation/demo-admin-dashboard.png)
@@ -122,12 +122,17 @@ ADDRESS="123 Main Street, City, Country"
 ---
 
 ### **Step 3: Set Up the Database**
-1. Create a new MySQL database (e.g., `ecommerce_db`).
-2. Generate application key:
+1. Create a new MySQL database (e.g., `ecommerce_db`) in your database management tool (e.g., phpMyAdmin).
+2. Install composer dependencies:
+   ```bash
+   composer install
+   ```
+
+3. Generate application key:
    ```bash
    php artisan key:generate
    ```
-3. Run migrations and seeders:
+4. Run migrations and seeders:
    ```bash
    php artisan migrate
    ```

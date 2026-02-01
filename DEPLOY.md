@@ -90,12 +90,29 @@
    - If SSH is enabled, run the following commands via the terminal:
      ```bash
      cd public_html
-     composer install --no-dev --optimize-autoloader
+     composer install
+     php artisan key:generate
      php artisan migrate
+     ```
+
+#### 12. **Create Admin User**
+   - Edit the `UserSeeder` file located at `database/seeders/UserSeeder.php` and set your email and password to create a global admin account:
+     ```php
+     // Example in UserSeeder.php
+     $user = User::create([
+         'first_name' => 'Admin',
+         'last_name' => 'User',
+         'email' => 'your-email@example.com',
+         'password' => Hash::make('your-secure-password'),
+         'is_admin' => 1,
+     ]);
+     ```
+   - Then run the seeder:
+     ```bash
      php artisan db:seed --class=UserSeeder
      ```
 
-#### 12. **Test Your Application**
+#### 13. **Test Your Application**
    - Visit your domain (e.g., `https://yourdomain.com`) to verify the deployment.
    - If you encounter issues, check logs in `storage/logs/laravel.log` or enable debugging temporarily by setting `APP_DEBUG=true` in `.env`.
 
