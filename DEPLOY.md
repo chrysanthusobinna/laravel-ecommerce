@@ -90,8 +90,7 @@
    - If SSH is enabled, run the following commands via the terminal:
      ```bash
      cd public_html
-     composer install   # If dependencies are not installed
-     composer update    # To update existing dependencies
+     composer install --no-dev --optimize-autoloader
      php artisan migrate
      php artisan db:seed --class=UserSeeder
      ```

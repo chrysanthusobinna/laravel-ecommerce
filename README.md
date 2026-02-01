@@ -37,11 +37,11 @@ Best practices are being employed in this project according to the latest Larave
 ## Tools & Technologies Used
 - **Laravel Framework**: PHP framework for building robust web applications.
 - **MySQL**: Database for storing e-commerce data (products, orders, customers, categories, etc.).
-- **AdminLTE 3**: For the admin dashboard interface ([AdminLTE 3 Dashboard](https://adminlte.io/themes/v3/)).
 - **HTML5 & CSS3**: For building the front-end structure and design.
 - **JavaScript & jQuery**: For interactive elements and dynamic behavior.
 - **Bootstrap**: For responsive design and layout.
-- **Templatemagic**: Portfolio template ([Portfolio by Templatemagic](https://themeforest.net/user/templatemagic/portfolio)).
+- **Template**: Molla - eCommerce HTML5 Template ([Molla - eCommerce HTML5 Template](https://themeforest.net/item/molla-ecommerce-html5-template/25119280)).
+- **Admin Template**: CelestialAdmin - Free Admin Template ([CelestialAdmin - Free Admin Template](https://github.com/BootstrapDash/celestialAdmin-free-admin-template))
 
 ---
 
@@ -52,6 +52,7 @@ This project utilizes the following libraries for enhanced functionality:
 - **[intervention/image-laravel (1.3.0)](https://github.com/Intervention/image)**: Laravel integration of Intervention Image for image manipulation.  
 - **[yajra/laravel-datatables-oracle (11.1.5)](https://yajrabox.com/docs/laravel-datatables/master)**: jQuery DataTables API for Laravel, simplifying server-side processing.  
 - **[stripe/stripe-php (16.4.0)](https://github.com/stripe/stripe-php)**: Stripe PHP library for payment processing and integration.  
+- **[paystackhq/paystack-php (3.1.2)](https://github.com/PaystackHQ/paystack-php)**: Paystack PHP library for payment processing and integration with African payment gateway.  
  
   
 
@@ -115,14 +116,18 @@ Get your Google Maps API key from the [Google Cloud Console](https://console.clo
 #### **Company Address**  
 Set the company address here. Note that the address saved in the database will take precedence, and this will only serve as a fallback:  
 ```plaintext  
-ADDRESS="Bradshawgate Bolton, BL1 1QD"  
+ADDRESS="123 Main Street, City, Country"  
 ```  
 
 ---
 
 ### **Step 3: Set Up the Database**
 1. Create a new MySQL database (e.g., `ecommerce_db`).
-2. Run migrations and seeders:
+2. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
+3. Run migrations and seeders:
    ```bash
    php artisan migrate
    ```

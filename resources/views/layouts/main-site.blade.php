@@ -39,7 +39,7 @@
                         </button>
                         
                         <a href="{{ route('home') }}" class="logo">
-                            <img src="/assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/assets/images/logo.png" alt="Molla Logo" >
                         </a>
                     </div>
                     <div class="header-center">
@@ -161,7 +161,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="widget widget-about">
-                                <img src="/assets/images/demos/demo-8/logo-footer.png" class="footer-logo" alt="Footer Logo" width="82" height="25">
+                                <img src="/assets/images/logo-footer.png" class="footer-logo" alt="Footer Logo">
                                 <p>At {{ config('site.name') }}, we offer quality products and exceptional service. Shop online for convenient pickup or delivery, and enjoy a seamless shopping experience from the comfort of your home.</p>
                                 <div class="social-icons">
                                     @foreach($socialMediaHandles as $handle)
