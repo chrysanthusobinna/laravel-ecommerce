@@ -18,12 +18,10 @@ return new class extends Migration
 
             // Add address references (nullable)
             $table->unsignedBigInteger('delivery_address_id')->nullable()->after('user_id');
-            $table->unsignedBigInteger('billing_address_id')->nullable()->after('delivery_address_id');
 
             // Add foreign keys (optional, depending on your setup)
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('delivery_address_id')->references('id')->on('addresses')->nullOnDelete();
-            $table->foreign('billing_address_id')->references('id')->on('addresses')->nullOnDelete();
         });
     }
 
@@ -33,9 +31,7 @@ return new class extends Migration
             // Rollback
             $table->dropForeign(['user_id']);
             $table->dropForeign(['delivery_address_id']);
-            $table->dropForeign(['billing_address_id']);
 
-            $table->dropColumn(['delivery_address_id', 'billing_address_id']);
 
             // Revert user_id back to customer_id if needed
             if (Schema::hasColumn('orders', 'user_id')) {

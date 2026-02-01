@@ -12,8 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            // Enum label: either 'delivery' or 'billing'
-            $table->enum('label', ['delivery', 'billing'])->default('delivery');
+            $table->enum('label', ['delivery'])->default('delivery');
 
             // Address fields
             $table->string('street')->nullable();
